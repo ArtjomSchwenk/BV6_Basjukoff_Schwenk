@@ -101,11 +101,27 @@ public class DPCMCodec {
 	
 	public double getMSE(RasterImage originalImage, RasterImage reconstructedImage) {
 		
-		double mse = Double.NaN;
-		
 		// TODO: calculate and return the Mean Square Error between the given images
+
+		double mse = 0.0;
+		int width = originalImage.width;
+		int height = originalImage.height;
+
+		int totalPixels = width * height;
+		int[] original = originalImage.argb;
+		int[] reconstructed = reconstructedImage.argb;
+
+		for (int i = 0; i < totalPixels; ++i) {
+			// Extract the grayscale value
+			int originalGray = original[i] & 255;
+			int reconstructedGray = reconstructed[i] & 255;
+
+			mse += Math.pow(originalGray - reconstructedGray, 2.0);
+		}
+
+		// Return the Mean Squared Error
+		return mse / totalPixels;
 		
-		return mse;
 	}
 	
  		   		   	  
