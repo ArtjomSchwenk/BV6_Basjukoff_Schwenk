@@ -83,7 +83,15 @@ public class RasterImage {
 	public void convertToGray() {
 		
 		// TODO: convert the image to grayscale
-		
+		for(int i = 0; i < argb.length; i ++){
+			int a = (argb[i] >> 24) & 0xff;
+			int r = (argb[i] >> 16) & 0xff;
+			int g = (argb[i] >> 8) & 0xff;
+			int b = (argb[i] ) & 0xff;
+
+			int newGray = (r + g + b) / 3;
+			argb[i] = (a<<24) | (newGray<<16) | (newGray<<8) | newGray;
+		}
 	}
 	
 	public double getEntropy() {
