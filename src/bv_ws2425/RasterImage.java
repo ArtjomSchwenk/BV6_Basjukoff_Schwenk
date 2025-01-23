@@ -95,10 +95,27 @@ public class RasterImage {
 	}
 	
 	public double getEntropy() {
-		
-		double entropy = Double.NaN;
-		
+
 		// TODO: calculate and return the entropy of the image
+		// Mit Unterstützung von Duncan <3
+
+		int[] histogram = new int[256];
+		int totalPixels = this.argb.length;
+
+		for(int i = 0; i < this.argb.length; ++i) {
+			int pixel = this.argb[i];
+			int gray = pixel & 255;
+			int var10002 = histogram[gray]++;
+		}
+
+		double entropy = 0.0;
+
+		for(int i = 0; i < histogram.length; ++i) {
+			if (histogram[i] > 0) {
+				double p = (double)histogram[i] / (double)totalPixels;
+				entropy -= p * (Math.log(p) / Math.log(2.0));
+			}
+		}
 
 		return entropy;
 	}
